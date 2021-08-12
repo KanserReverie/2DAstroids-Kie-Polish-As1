@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
         _myRb = GetComponent<Rigidbody2D>();
     }
 
-    
+
     private void Update()
     {
         // Used to get the inputs of the player.
@@ -86,8 +86,10 @@ public class Player : MonoBehaviour
         {
             _myRb.velocity = Vector3.zero;
             _myRb.angularVelocity = 0.0f;
-            
+
             this.gameObject.SetActive(false);
+
+            GameManager.instance.PlayerDied();
         }
     }
 }
