@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
         {
             // This makes sure this Game Manager Persists over scenes and doesn't change.
             // Might need to be deleated once all lives are lost to not hold data.                  <<<--- !!! TO DO !!!
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);                                                        <<<--- Edited out
 
             instance = this;
         }
@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
 
     public TMP_Text Score;
     public TMP_Text Lives;
+
+    public GameObject GameOverCanvas;
 
     // Called whenever an Astroid is destroyed
     public void AstroidDestroyed(Astroid astroid)
@@ -95,7 +97,6 @@ public class GameManager : MonoBehaviour
     }
     private void GameOver()
     {
-        this.lives = 3;
-        this.score = 0;
+        GameOverCanvas.gameObject.SetActive(true);
     }
 }
