@@ -244,7 +244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7124950596328326979, guid: 8dfe8a4e35bcbb3499ed49b7225e487a, type: 3}
       propertyPath: m_Name
-      value: Full Game
+      value: Game
       objectReference: {fileID: 0}
     - target: {fileID: 8840616155155718063, guid: 8dfe8a4e35bcbb3499ed49b7225e487a, type: 3}
       propertyPath: m_RootOrder

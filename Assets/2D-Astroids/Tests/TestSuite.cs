@@ -1,25 +1,29 @@
 using System.Collections;
-using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
 public class TestSuite
 {
-    // A Test behaves as an ordinary method
-    [Test]
-    public void TestSuiteSimplePasses()
-    {
-        // Use the Assert class to test conditions
-    }
+	private GameManager gameManager;
 
-    // A UnityTest behaves like a coroutine in Play Mode. In Edit Mode you can use
-    // `yield return null;` to skip a frame.
-    [UnityTest]
-    public IEnumerator TestSuiteWithEnumeratorPasses()
-    {
-        // Use the Assert class to test conditions.
-        // Use yield to skip a frame.
-        yield return null;
-    }
+// 1
+	[UnityTest]
+	public IEnumerator AsteroidsMovesAfterSpawned()
+	{
+		// 2
+		GameObject gameGameObject = MonoBehaviour.Instantiate(Resources.Load<GameObject>("Prefabs/Game"));
+		gameManager = gameGameObject.GetComponent<GameManager>();
+		AsteroidSpawner asteroidSpawner = gameGameObject.GetComponentInChildren<AsteroidSpawner>();
+		// 3
+		GameObject asteroid = asteroidSpawner.SpawnOneAsteroid();
+		// 4
+		Vector2 initialPos = asteroid.transform.position;
+		// 5
+		yield return new WaitForSeconds(0.1f);
+		// 6
+		Assert.AreNotEqual(asteroid.transform.position, initialPos);
+		// 7
+		Object.Destroy(gameManager.gameObject);
+	}
 }
