@@ -1,7 +1,12 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AsteroidSpawner : MonoBehaviour
 {
+    // List of all asteroids.
+    public List<GameObject> asteroids = new List<GameObject>();
+    
     // Astroid to be spawned.
     public Astroid astroidPrefab;
     // How often Astroids are spawned.
@@ -43,7 +48,19 @@ public class AsteroidSpawner : MonoBehaviour
         astroid.size = Random.Range(astroid.minSize, astroid.maxSize);
         // Calls the Trajectory and Makes it always go towards the center of the screen.
         astroid.SetTrajectory(rotation * -spawnDirection);
+        // Adds asteroid to the list of asteroids.
+        asteroids.Add(astroid.gameObject);
         // Return a gameObject as this is needed for a test runner.
         return astroid.gameObject;
+    }
+    
+    // Clears and resets the list of asteroids.
+    public void ClearAsteroids()
+    {
+        foreach(GameObject asteroid in asteroids)
+        {
+            Destroy(asteroid);
+        }
+        asteroids.Clear();
     }
 }

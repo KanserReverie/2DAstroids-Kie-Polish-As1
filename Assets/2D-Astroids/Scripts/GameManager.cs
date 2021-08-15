@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     private void Awake()
     {
+        isGameOver = false;
         if (instance == null)
         {
             // This makes sure this Game Manager Persists over scenes and doesn't change.
@@ -30,12 +31,15 @@ public class GameManager : MonoBehaviour
     public int lives = 3;
     public float respawnInvulnerabilityTime = 3;
     public int score = 0;
+    public AsteroidSpawner asteroidSpawner;
 
     public TMP_Text Score;
     public TMP_Text Lives;
 
     public GameObject GameOverCanvas;
+    public bool isGameOver;
 
+    
     // Called whenever an Astroid is destroyed
     public void AstroidDestroyed(Astroid astroid)
     {
@@ -82,13 +86,29 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Respawns Player
+    /// </summary>
+    /// <param name="_newGame">Put "True" if it is a new game (gives Invulnerability for a few seconds).</param>
     private void Respawn()
+    {
+        Respawn(false);
+    }
+
+    /// <summary>
+    /// Respawns Player
+    /// </summary>
+    /// <param name="_newGame">Put "True" if it is a new game (gives Invulnerability for a few seconds).</param>
+    private void Respawn(bool _newGame)
     {
         this.player.transform.position = Vector3.zero;
         this.player.gameObject.layer = LayerMask.NameToLayer("Ignore Collisions");
         this.player.gameObject.SetActive(true);
-        // Gives Invulnerability for a few seconds.
-        Invoke(nameof(TurnOnCollisions), this.respawnInvulnerabilityTime);
+        if(!_newGame)
+        {
+            // Gives Invulnerability for a few seconds.
+            Invoke(nameof(TurnOnCollisions), this.respawnInvulnerabilityTime);
+        }
     }
 
     private void TurnOnCollisions()
@@ -97,6 +117,17 @@ public class GameManager : MonoBehaviour
     }
     private void GameOver()
     {
+        isGameOver = true;
         GameOverCanvas.gameObject.SetActive(true);
     }
+    public void NewGame()
+    {
+        asteroidSpawner.ClearAsteroids();
+        Respawn(true);
+        lives = 3;
+        score = 0;
+        isGameOver = false;
+        GameOverCanvas.gameObject.SetActive(false);
+    }
+
 }
