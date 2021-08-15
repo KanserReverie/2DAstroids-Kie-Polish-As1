@@ -85,7 +85,7 @@ public class TestSuite
 	}
 	
 	[UnityTest]
-	public IEnumerator BulletsDestroysAsteroid()
+	public IEnumerator BulletsDestroyAsteroid()
 	{
 		// Spawns one astroid as asteroid.
 		GameObject asteroid = asteroidSpawner.SpawnOneAsteroid();
