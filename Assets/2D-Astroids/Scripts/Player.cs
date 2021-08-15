@@ -73,11 +73,12 @@ public class Player : MonoBehaviour
 
     }
 
-    private void Shoot()
+    public GameObject Shoot()
     {
         var transform1 = transform;
         Bullet bullet = Instantiate(bulletPrefab, transform1.position, transform1.rotation);
         bullet.Project(transform.up);
+        return bullet.gameObject;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -70,4 +70,34 @@ public class TestSuite
 		// Returns after done.
 		yield return null;
 	}
+	
+	[UnityTest]
+	public IEnumerator BulletsMove()
+	{
+		// Shoots bullet.
+		GameObject bullet = player.Shoot();
+		// Gets bullet position.
+		Vector2 initialYPos = bullet.transform.position;
+		// Waits 0.1 Seconds.
+		yield return new WaitForSeconds(0.1f);
+		// Checks if it now has a different position.
+		Assert.AreNotEqual(bullet.transform.position, initialYPos);
+	}
+	
+	[UnityTest]
+	public IEnumerator BulletsDestroysAsteroid()
+	{
+		// Spawns one astroid as asteroid.
+		GameObject asteroid = asteroidSpawner.SpawnOneAsteroid();
+		// Put asteroid at 0,0.
+		asteroid.transform.position = Vector3.zero;
+		// Shoots bullet.
+		GameObject bullet = player.Shoot();
+		// Put bullet at 0,0.
+		bullet.transform.position = Vector3.zero;
+		// Wait 0.1 of a second.
+		yield return new WaitForSeconds(0.1f);
+		// Use Unity to check if null.
+		UnityEngine.Assertions.Assert.IsNull(asteroid);
+	}
 }
